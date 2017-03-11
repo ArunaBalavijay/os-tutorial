@@ -62,6 +62,36 @@ into machine code with its bytes in the correct order. However, it is sometimes 
 especially when looking for bugs, to know exactly where an individual byte will be stored
 on a storage device or in memory, so endianness is very important.
 
+Note:
+
+A computer represent a number as a sequence of `bits` (binary digits),
+since fundamentally its circuitry can distinguish between only two electrical states: `0` and
+`1`. So, to represent a number larger than 1, the computer can bunch together a series of bits.
+
+Names have been adopted for bit series of certain lengths to make it easier to talk
+about and agree upon the size of numbers we are dealing with. The instructions of
+most computers deal with a minimum of `8 bit` values, which are named `bytes`. Other
+groupings are `short`, `int`, and `long`, which usually represent `16`-bit, `32`-bit, and `64`-bit
+values, respectively. We also see the term `word`, that is used to describe the size of the
+maximum processing unit of the current mode of the `CPU`: so in 16-bit `real mode`, a
+word refers to a 16-bit value; in 32-bit `protected mode`, a word refers to a 32-bit value;
+and so on.
+
+Each `4-bit` segments of the binary number is converted into a shorthand hexadecimal
+notation as below.
+
+1 1 1 0                 Hence, the hexadecimal value of `0xe` represents a `4-bit` value of `1 1 1 0`.
+| | | |                 And, `0xe9` above represents a `8-bit` value (`1 byte` each).
+| | | x 1 = 0
+| | x 2   = 2
+| x 4     = 4
+x 8       = 8
+
+Total     =14 (`0xe`)
+
+Thus, above binary boot sector file has 16 bytes in each row with 32 rows in total to accomodate `512 bytes` (16 * 32).
+
+
 Simplest boot sector ever
 -------------------------
 
