@@ -17,7 +17,7 @@ look at this important step from 16-bit real mode into 32-bit protected mode in 
 
 Generally, when we say that a CPU is 16-bit, we mean that its instructions can work
 with a maximum of 16-bits at once, for example: a 16-bit CPU will have a particular
-instruction that can add two 16-bit numbers together in one CPU cycle; if it was necessary
+instruction that can add two 16-bit (2 bytes) numbers together in one CPU cycle; if it was necessary
 for a process to add together two 32-bit numbers, then it would take more cycles,
 that make use of 16-bit addition.
 
