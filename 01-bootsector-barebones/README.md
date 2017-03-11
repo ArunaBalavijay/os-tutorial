@@ -7,7 +7,7 @@ This is very exciting, we're going to create our own boot sector!
 Theory
 ------
 
-The Basic Input/Output Software (BIOS) is a collection of software routines that are
+The Basic Input/Output Software (`BIOS`) is a collection of software routines that are
 initially loaded from a chip into memory and initialised when the computer is switched
 on. BIOS provides auto-detection and basic control of the computer’s essential devices,
 such as the screen, keyboard, and hard disks.
