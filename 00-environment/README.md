@@ -15,4 +15,5 @@ to call `qemu-system-x86_64 binfile`
 *For Windows*
 
 [Install QEMU](https://qemu.weilnetz.de/w64/)
+
 [Install NASM](http://www.nasm.us/pub/nasm/releasebuilds/2.13rc8/)
