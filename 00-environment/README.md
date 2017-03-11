@@ -12,7 +12,7 @@ Don't use the Xcode developer tools `nasm` if you have them installed, they won'
 Furthermore, on a mac, qemu is split into multiple binaries. You will want
 to call `qemu-system-x86_64 binfile`
 
-*For Windows*
+*For Windows,*
 
 [Install QEMU](https://qemu.weilnetz.de/w64/)
 
