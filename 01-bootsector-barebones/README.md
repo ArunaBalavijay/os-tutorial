@@ -44,10 +44,23 @@ e9 fd ff 00 00 00 00 00 00 00 00 00 00 00 00 00
 ```
 
 It is basically all zeros, ending with the 16-bit value
-`0xAA55` (beware of indianness, x86 is little-endian). 
+`0xAA55` (beware of indianness, `x86` is little-endian). 
+
 The first three bytes, in hexadecimal as `0xe9`, `0xfd` and `0xff`, are actually
 machine code instructions, as defined by the CPU manufacturer, to perform an
 endless (infinite) jump.
+
+An important note on endianness. You might be wondering why the magic BIOS
+number was earlier described as the 16-bit value `0xaa55` but in our boot sector was
+written as the consecutive bytes `0x55` and `0xaa`. This is because the `x86` architecture
+handles multi-byte values in little-endian format, whereby less significant bytes proceed
+more significant bytes, which is contrary to our familiar numbering system.
+
+Compilers and assemblers can hide many issues of endianness from us by allowing
+us to define the types of data, such that, say, a 16-bit value is serialised automatically
+into machine code with its bytes in the correct order. However, it is sometimes useful,
+especially when looking for bugs, to know exactly where an individual byte will be stored
+on a storage device or in memory, so endianness is very important.
 
 Simplest boot sector ever
 -------------------------
