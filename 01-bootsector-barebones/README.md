@@ -79,3 +79,9 @@ I know you're anxious to try it out (I am!), so let's do it:
 You will see a window open which says "Booting from Hard Disk..." and
 nothing else. When was the last time you were so excited to see an infinite
 loop? ;-)
+
+*For Windows,*
+
+`"C:\Program Files (x86)\NASM\nasm" -f bin boot_sector.asm -o boot_sector.bin`
+
+`"C:\Program Files\qemu\qemu-system-i386.exe" boot_sector.bin`
