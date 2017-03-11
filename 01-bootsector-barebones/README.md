@@ -81,11 +81,17 @@ Each `4-bit` segments of the binary number is converted into a shorthand hexadec
 notation as below.
 
 1 1 1 0                 Hence, the hexadecimal value of `0xe` represents a `4-bit` value of `1 1 1 0`.
+
 | | | |                 And, `0xe9` above represents a `8-bit` value (`1 byte` each).
+
 | | | x 1 = 0
+
 | | x 2   = 2
+
 | x 4     = 4
+
 x 8       = 8
+
 
 Total     =14 (`0xe`)
 
