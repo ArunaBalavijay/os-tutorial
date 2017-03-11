@@ -6,6 +6,25 @@ registers*
 We will improve a bit on our infinite-loop boot sector and print
 something on the screen. We will raise an interrupt for this.
 
+Theory
+------
+
+For backward compatibility, it is important that CPUs boot initially in `16-bit
+real mode`, requiring modern operating systems explicitly to switch up into the more
+advanced `32-bit` (or `64-bit`) `protected mode`, but allowing older operating systems to
+carry on, blissfully unaware that they are running on a modern CPU. Later on, we will
+look at this important step from 16-bit real mode into 32-bit protected mode in detail.
+
+Generally, when we say that a CPU is 16-bit, we mean that its instructions can work
+with a maximum of 16-bits at once, for example: a 16-bit CPU will have a particular
+instruction that can add two 16-bit numbers together in one CPU cycle; if it was necessary
+for a process to add together two 32-bit numbers, then it would take more cycles,
+that make use of 16-bit addition.
+
+First we will explore this 16-bit real mode environment, since all operating systems
+must begin here, then later we will see how to switch into 32-bit protected mode and the
+main benefits of doing so.
+
 On this example we are going to write each character of the "Hello"
 word into the register `al` (lower part of `ax`), the bytes `0x0e`
 into `ah` (the higher part of `ax`) and raise interrupt `0x10` which
