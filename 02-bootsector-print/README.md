@@ -74,47 +74,80 @@ on the value set in one of the CPUs *general purpose registers*, `ax`, prior to 
 interrupt.
 
 **CPU Registers**: Just as we use variables in a higher level languages, 
-it is useful if we can store data tem-porarily during a particular routine. 
-All x86 CPUs have four general purpose registers, ax, bx, cx, and dx, 
+it is useful if we can store data temporarily during a particular routine. 
+All x86 CPUs have four general purpose registers, `ax`, `bx`, `cx`, and `dx`, 
 for exactly that purpose. Also, these registers, which can each hold
-a word (two bytes, 16 bits) of data, can be read and written by the CPU with negligible
+a *word* (two bytes, 16 bits) of data, can be read and written by the CPU with negligible
 delay as compared with accessing main memory. In assembly programs, one of the most
-common operations is moving (or more accurately, copying) data between these registers:
+common operations is moving (or more accurately, *copying*) data between these registers:
 
-On this example we are going to write each character of the "Hello"
-word into the register `al` (lower part of `ax`), the bytes `0x0e`
-into `ah` (the higher part of `ax`) and raise interrupt `0x10` which
-is a general interrupt for video services.
+```nasm
+mov ax , 1234       ; store the decimal number 1234 in ax
+mov cx , 0 x234     ; store the hex number 0 x234 in cx
+mov dx , 't'        ; store the ASCII code for letter 't' in dx
+mov bx , ax         ; copy the value of ax into bx , so now bx == 1234
+```
 
-`0x0e` on `ah` tells the video interrupt that the actual function
-we want to run is to 'write the contents of `al` in tty mode'.
+Notice that the destination is the first and not second argument of the `mov` operation,
+but this convention varies with different assemblers.
 
-We will set tty mode only once though in the real world we 
+Sometimes it is more convenient to work with single bytes, so these registers let us
+set their *high* (`ah` - higher part of `ax`) and *low* (`al` - lower part of `ax`) bytes independently:
+
+```nasm
+mov ax , 0        ; ax -> 0x0000 , or in binary 0000000000000000
+mov ah , 0 x56    ; ax -> 0 x5600
+mov al , 0 x23    ; ax -> 0 x5623
+mov ah , 0 x16    ; ax -> 0 x1623
+```
+
+To print a character on the screen, we can invoke a specific BIOS routine 
+by setting `ax` to some BIOS-defined value and then triggering a specific interrupt. 
+The specific routine we want is the BIOS scrolling `tele-type` routine, 
+which will print a single character on the screen and advance the cursor,
+ready for the next character.
+
+There is a whole list of BIOS routines published that show you which interrupt to use 
+and how to set the registers prior to the interrupt. Here, we need interrupt `0x10` 
+and to set `ah` to `0x0e` (to indicate `tele-type` mode) and `al` to the
+ASCII code of the character we wish to print.
+
+We will set `tele-type` mode only once though in the real world we 
 cannot be sure that the contents of `ah` are constant. Some other
 process may run on the CPU while we are sleeping, not clean
 up properly and leave garbage data on `ah`.
 
-For this example we don't need to take care of that since we are
+For this example, we don't need to take care of that since we are
 the only thing running on the CPU.
 
 Our new boot sector looks like this:
+
 ```nasm
-mov ah, 0x0e ; tty mode
+;
+; A simple boot sector that prints a message to the screen using a BIOS routine.
+;
+
+mov ah, 0x0e    ; int 10/ ah = 0eh -> scrolling teletype BIOS routine
+
 mov al, 'H'
 int 0x10
 mov al, 'e'
 int 0x10
 mov al, 'l'
 int 0x10
-int 0x10 ; 'l' is still on al, remember?
+int 0x10        ; 'l' is still on al, remember?
 mov al, 'o'
 int 0x10
 
-jmp $ ; jump to current address = infinite loop
+jmp $           ; jump to current address ( i.e. forever ) = infinite loop
 
-; padding and magic number
-times 510 - ($-$$) db 0
-dw 0xaa55 
+;
+; Padding and magic BIOS number.
+;
+
+times 510 - ($-$$) db 0   ; Pad the boot sector out with zeros
+dw 0xaa55                 ; Last two bytes form the magic number ,
+                          ; so BIOS knows we are a boot sector.
 ```
 
 You can examine the binary data with `xxd file.bin`
