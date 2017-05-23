@@ -11,6 +11,12 @@ push 'C'
 mov al, [0x7ffe] ; 0x8000 - 2
 int 0x10
 
+mov al, [0x7ffc] ; 0x8000 - 4
+int 0x10
+
+mov al, [0x7ffa] ; 0x8000 - 6
+int 0x10
+
 ; however, don't try to access [0x8000] now, because it won't work
 ; you can only access the stack top so, at this point, only 0x7ffe (look above)
 mov al, [0x8000]
