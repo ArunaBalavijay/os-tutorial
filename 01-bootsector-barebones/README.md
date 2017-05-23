@@ -131,6 +131,10 @@ To combile assembler code into machine (binary) code:
 
 `"C:\Program Files (x86)\NASM\nasm" -f bin boot_sector.asm -o boot_sector.bin`
 
+http://www.nasm.us/pub/nasm/releasebuilds
+
 To boot from the binary file:
 
 `"C:\Program Files\qemu\qemu-system-i386.exe" boot_sector.bin`
+
+https://qemu.weilnetz.de/w64/
