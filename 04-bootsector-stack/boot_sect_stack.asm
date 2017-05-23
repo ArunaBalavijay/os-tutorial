@@ -8,13 +8,13 @@ push 'B'
 push 'C'
 
 ; to show how the stack grows downwards
-mov al, [0x7ffe] ; 0x8000 - 2
+mov al, [0x7ffe] ; 0x8000 - 0x2 ( i.e. 16 - bits )
 int 0x10
 
-mov al, [0x7ffc] ; 0x8000 - 4
+mov al, [0x7ffc] ; 0x8000 - 0x4
 int 0x10
 
-mov al, [0x7ffa] ; 0x8000 - 6
+mov al, [0x7ffa] ; 0x8000 - 0x6
 int 0x10
 
 ; however, don't try to access [0x8000] now, because it won't work
